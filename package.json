@@ -1,6 +1,6 @@
 {
   "name": "get-pixels-ts",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Reads the pixels of an image as an ndarray",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",

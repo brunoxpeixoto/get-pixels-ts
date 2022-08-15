@@ -1,4 +1,4 @@
-get-pixels
+get-pixels-ts
 ==========
 Given a path, grab all the pixels in an image and return the result as an [ndarray](https://github.com/mikolalysenko/ndarray).
 
