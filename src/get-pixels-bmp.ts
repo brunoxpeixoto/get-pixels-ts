@@ -4,7 +4,7 @@ const Bitmap = require('node-bitmap');
 const pack = require('ndarray-pack');
 
 export class GetPixelsBMP implements GetPixelsInterface {
-  async execute(data: Buffer): Promise<NdArray> {
+  async execute(data: Buffer): Promise<NdArray<Uint8Array>> {
     return new Promise((resolve, reject) => {
       const bmp = new Bitmap(data);
       try {
@@ -17,7 +17,7 @@ export class GetPixelsBMP implements GetPixelsInterface {
       const ndata = new Uint8Array(nshape[0] * nshape[1] * nshape[2]);
       const result = ndarray(ndata, nshape);
       pack(bmpData, result);
-      resolve(result.transpose(1, 0));
+      resolve(result.transpose(1, 0) as NdArray<Uint8Array>);
     });
   }
 }

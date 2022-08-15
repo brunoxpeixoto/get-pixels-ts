@@ -1,12 +1,12 @@
-import ndarray, { NdArray } from "ndarray";
-import { DependenciesFactoryInterface } from "./dependencies/dependencies-factory.interface";
-import mime from "mime-types";
-import fs from "fs";
+import ndarray, { NdArray } from 'ndarray';
+import { DependenciesFactoryInterface } from './dependencies/dependencies-factory.interface';
+import mime from 'mime-types';
+import fs from 'fs';
 
-export class GetPixels {
+class GetPixels {
   constructor(private dependencies: DependenciesFactoryInterface) {}
 
-  async execute(path: string): Promise<NdArray> {
+  async execute(path: string): Promise<NdArray<Uint8Array>> {
     const mimeType = mime.lookup(path);
 
     const getPixels = this.dependencies.getGetPixels(mimeType as string);
@@ -16,3 +16,5 @@ export class GetPixels {
     return await getPixels.execute(buffer);
   }
 }
+
+export default GetPixels;

@@ -12,30 +12,21 @@ Example
 =======
 
 ```typescript
-import GetPixels from 'get-pixels-ts';
+import { handler } from 'get-pixels-ts';
 
-const getPixels = new GetPixels();
+const pixels = await handler("lena.png");
 
-getPixels("lena.png", function(err, pixels) {
-  if(err) {
-    console.log("Bad image path")
-    return
-  }
-  console.log("got pixels", pixels.shape.slice())
-})
+console.log("got pixels", pixels.shape.slice());
 ```
-
 Install
 =======
 
-    npm install get-pixels
+    npm install get-pixels-ts
 
-### `require("get-pixels")(url[, type], cb(err, pixels))`
-Reads all the pixels from url into an ndarray.
+### `require("get-pixels-ts")(path)`
+Reads all the pixels from path into an ndarray.
 
-* `url` is the path to the file.  It can be a relative path, an http url, a data url, or an [in-memory Buffer](http://nodejs.org/api/buffer.html).
-* `type` is an optional mime type for the image (required when using a Buffer)
-* `cb(err, pixels)` is a callback which gets triggered once the image is loaded.
+* `path` is the path to the file.
 
 **Returns** An ndarray of pixels in raster order having shape equal to `[width, height, channels]`.
 

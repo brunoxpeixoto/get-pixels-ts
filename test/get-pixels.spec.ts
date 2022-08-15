@@ -1,5 +1,6 @@
-import ndarray from "ndarray";
-import { handler } from "../src/index";
+import ndarray from 'ndarray';
+import { DependenciesFactory } from '../src/dependencies/dependencies-factory';
+import GetPixels from '../src/get-pixels';
 
 const EXPECTED_IMAGE = ndarray(
   [
@@ -61,22 +62,28 @@ const testImage = (img: any, tol?: any) => {
   }
 };
 
-test("get-pixels", async () => {
-  const data = await handler("test/lena.png");
-  expect(data.shape.join(",")).toEqual("512,512,4");
+const dependencies = DependenciesFactory.instance;
+
+test('get-pixels', async () => {
+  const getPixels = new GetPixels(dependencies);
+  const data = await getPixels.execute('test/lena.png');
+  expect(data.shape.join(',')).toEqual('512,512,4');
 });
 
-test("get-pixels-png", async () => {
-  const data = await handler("test/test_pattern.png");
+test('get-pixels-png', async () => {
+  const getPixels = new GetPixels(dependencies);
+  const data = await getPixels.execute('test/test_pattern.png');
   testImage(data);
 });
 
-test("get-pixels-jpg", async () => {
-  const data = await handler("test/test_pattern.jpg");
+test('get-pixels-jpg', async () => {
+  const getPixels = new GetPixels(dependencies);
+  const data = await getPixels.execute('test/test_pattern.jpg');
   testImage(data, 4);
 });
 
-test("get-pixels-gif", async () => {
-  const data = await handler("test/test_pattern.gif");
+test('get-pixels-gif', async () => {
+  const getPixels = new GetPixels(dependencies);
+  const data = await getPixels.execute('test/test_pattern.gif');
   testImage(data.pick(0));
 });

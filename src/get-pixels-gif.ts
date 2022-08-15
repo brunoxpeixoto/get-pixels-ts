@@ -3,7 +3,7 @@ import { GetPixelsInterface } from './interface/get-pixels.interface';
 import { GifReader } from 'omggif';
 
 export class GetPixelsGIF implements GetPixelsInterface {
-  async execute(data: Buffer): Promise<NdArray> {
+  async execute(data: Buffer): Promise<NdArray<Uint8Array>> {
     const reader = new GifReader(data);
     if (reader.numFrames() > 0) {
       const nshape = [reader.numFrames(), reader.height, reader.width, 4];
@@ -18,14 +18,14 @@ export class GetPixelsGIF implements GetPixelsInterface {
         );
       }
 
-      return result.transpose(0, 2, 1);
+      return result.transpose(0, 2, 1) as NdArray<Uint8Array>;
     } else {
       const nshape = [reader.height, reader.width, 4];
       const ndata = new Uint8Array(nshape[0] * nshape[1] * nshape[2]);
       const result = ndarray(ndata, nshape);
       reader.decodeAndBlitFrameRGBA(0, ndata);
 
-      return result.transpose(0, 2, 1);
+      return result.transpose(0, 2, 1) as NdArray<Uint8Array>;
     }
   }
 }

@@ -1,5 +1,5 @@
-import { NdArray } from "ndarray";
+import { NdArray } from 'ndarray';
 
 export interface GetPixelsInterface {
-    execute(data: Buffer): Promise<NdArray>;
+    execute(data: Buffer): Promise<NdArray<Uint8Array>>;
 }
